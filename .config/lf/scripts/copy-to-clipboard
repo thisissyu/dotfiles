@@ -11,8 +11,12 @@ elif [ -n "${WSL_DISTRO_NAME-}" ]; then
     set -- powershell.exe -NoProfile -Command '[Console]::InputEncoding = [System.Text.Encoding]::UTF8; Set-Clipboard -Value ([Console]::In.ReadToEnd())'
 elif [ -n "${WAYLAND_DISPLAY-}" ] && command -v wl-copy >/dev/null 2>&1; then
     set -- wl-copy
+elif [ -n "${DISPLAY-}" ] && command -v xclip >/dev/null 2>&1; then
+    set -- xclip -d "$DISPLAY" -i -selection clipboard
+elif [ -n "${TMUX-}" ]; then
+    set -- tmux load-buffer -w -
 else
-    set -- xclip -d "${DISPLAY:-:0}" -i -selection clipboard
+    set -- sh -c 'printf "\033]52;c;%s\a" "$(base64 | tr -d "\n")"'
 fi
 
 command -v "$1" >/dev/null 2>&1 || missing "$1"
