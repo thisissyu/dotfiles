@@ -36,7 +36,8 @@ export MYTMUX # For neovide to use tmux.
 # MYTMUX: str
 # MYCNMIRROR: int
 # MYWAYLAND: str. e.g, `sway --unsupported-gpu`
-# MYHTTPPROXYPORT: str. for `P ()` command.
+# MYPROXYHOST: str. for `P ()` command.
+# MYHTTPPROXYPORT: same as above.
 # MYALLPROXYPORT: same as above.
 # HOMEBREW_PREFIX: str. optional for non-sudo install. e.g, `$HOME/.linuxbrew`
 
@@ -349,9 +350,9 @@ P() {
         return 1
     fi
 
-    HTTP_PROXY="http://127.0.0.1:$MYHTTPPROXYPORT" \
-        HTTPS_PROXY="http://127.0.0.1:$MYHTTPPROXYPORT" \
-        ALL_PROXY="${MYALLPROXYPORT:+socks5h://127.0.0.1:${MYALLPROXYPORT}}" \
+    HTTP_PROXY="http://${MYPROXYHOST:-127.0.0.1}:$MYHTTPPROXYPORT" \
+        HTTPS_PROXY="${MYPROXYHOST:-127.0.0.1}:$MYHTTPPROXYPORT" \
+        ALL_PROXY="${MYALLPROXYPORT:+socks5h://${MYPROXYHOST:-127.0.0.1}:${MYALLPROXYPORT}}" \
         "$@"
 }
 
