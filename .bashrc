@@ -283,16 +283,13 @@ if [ -d "$HOMEBREW_PREFIX" ]; then # To simulate the brew shellenv command.
 fi
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HISTFILE=~/.bash_history
-# NOTE: Start of setting LANG and LC_ALL
+# NOTE: Start of setting LC_ALL
 # tmp="$(locale -a | grep -iE 'c\.utf|en_us\.utf')"
 # tmp1="$(echo "$tmp" | grep -iE 'c\.utf')"
 # [ -z "$tmp1" ] && tmp1="$(echo "$tmp" | grep -iE 'en_us\.utf')"
-# export LANG="$tmp1"
 # export LC_ALL="$tmp1"
-# echo "$tmp1" | grep -iq 'en' && export LC_COLLATE=C
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-# NOTE: End of setting LANG and LC_ALL
+export LC_ALL=C.UTF-8
+# NOTE: End of setting LC_ALL
 # For lazygit in MacOS:
 export XDG_CONFIG_HOME=~/.config
 # NOTE: Speed up Huggingface model downloading
