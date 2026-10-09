@@ -379,7 +379,10 @@ set scrolloff 4
 set mouse
 set period 1
 set info size
-# set ignorecase false
+# Case-sensitive sorting, with smart case-insensitive searching (lf r42+).
+set sortignorecase false
+set ignorecase true
+set smartcase true
 
 # === engines
 source ~/.config/lf/lfrc.opener
