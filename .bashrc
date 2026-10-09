@@ -358,7 +358,14 @@ P() {
 # ===
 # === Aliases
 # ===
-alias ls='ls --color=auto'
+# GNU ls supports directories-first sorting (macOS: brew install coreutils).
+if command -v gls >/dev/null 2>&1; then
+    alias ls='gls --color=auto --group-directories-first'
+elif command ls --group-directories-first -d . >/dev/null 2>&1; then
+    alias ls='ls --color=auto --group-directories-first'
+else
+    alias ls='ls --color=auto'
+fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
