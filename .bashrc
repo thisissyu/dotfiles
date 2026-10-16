@@ -300,7 +300,8 @@ export XDG_CONFIG_HOME=~/.config
 # export HF_HUB_ENABLE_HF_TRANSFER=1
 export HF_XET_HIGH_PERFORMANCE=1
 export HF_HUB_DOWNLOAD_TIMEOUT=600
-export NO_PROXY=localhost,127.0.0.1,::1
+export no_proxy=localhost,127.0.0.1,::1
+export NO_PROXY="$no_proxy"
 # For Chinese mirrors:
 if [ "$MYCNMIRROR" = 1 ]; then
     # Node.js
