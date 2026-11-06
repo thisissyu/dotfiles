@@ -43,13 +43,21 @@ map X !$f
 
 # dedicated keys for file opener actions
 map o &{{
-    if [ "$(uname)" = 'Darwin' ]; then
+    if [ -n "${WSL_DISTRO_NAME-}" ]; then
+        cmd.exe /c start "" "$(wslpath -w "$f")" >/dev/null 2>&1
+    elif [ "$(uname)" = 'Darwin' ]; then
         open $f
     else
         mimeopen $f
     fi
 }}
-map O $mimeopen --ask $f
+map O &{{
+    if [ -n "${WSL_DISTRO_NAME-}" ]; then
+        rundll32.exe shell32.dll,OpenAs_RunDLL "$(wslpath -w "$f")" >/dev/null 2>&1
+    else
+        mimeopen --ask "$f"
+    fi
+}}
 
 # mkdir command. See wiki if you want it to select created dir
 # map a :push %mkdir<space>
